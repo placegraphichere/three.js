@@ -244,7 +244,10 @@ function WebVRManager( renderer ) {
 		// We want to manipulate poseObject by its position and quaternion components since users may rely on them.
 		poseObject.matrix.copy( standingMatrix );
 		poseObject.matrix.decompose( poseObject.position, poseObject.quaternion, poseObject.scale );
-
+        
+        // Need to apply any globalMatrix of the parent of the camera to the standingMatrix 
+        // in order to position it correctly in case there are any parent level transforms.
+        
 		if ( pose.orientation !== null ) {
 
 			tempQuaternion.fromArray( pose.orientation );
